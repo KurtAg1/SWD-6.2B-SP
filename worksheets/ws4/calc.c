@@ -9,10 +9,16 @@
 
 BOOL check_if_number(char *string)
 {
+    if(strlen(string) == 0){
+        printf("Error: Missing Number\n");
+        return FALSE;
+    }
+
     for (int i = 0; i < strlen(string); i++)
     {
         if (!isdigit(string[i]) && string[i] != '-' && string[i] != '.')
         {
+            printf("Error: Invalid Number\n");
             return FALSE;
         }
     }
@@ -22,6 +28,7 @@ BOOL check_if_number(char *string)
 
 BOOL check_if_calculation(char* string){
     if(strlen(string) != 1){
+        printf("Error: Invalid Operator\n");
         return FALSE;
     }
 
@@ -75,14 +82,10 @@ int main(int argc, char *argv[])
                 showAcceptedArguments = FALSE;
             }
         }
-        else
-        {
-            printf("Invalid Calculation!\n");
-        }
     }
     else
     {
-        printf("Invalid Arguments!\n");
+        printf("Too few/many Arguments!\n");
     }
 
     if(showAcceptedArguments){
@@ -93,4 +96,5 @@ int main(int argc, char *argv[])
     }
 
     printf("\n\n");
+    return 0;
 }
