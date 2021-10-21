@@ -11,7 +11,7 @@ BOOL check_if_number(char *string)
 {
     for (int i = 0; i < strlen(string); i++)
     {
-        if (!isdigit(string[i]) && string[i] != '-')
+        if (!isdigit(string[i]) && string[i] != '-' && string[i] != '.')
         {
             return FALSE;
         }
@@ -20,76 +20,77 @@ BOOL check_if_number(char *string)
     return TRUE;
 }
 
-BOOL check_if_symbol(char *string){
+BOOL check_if_calculation(char* string){
     if(strlen(string) != 1){
         return FALSE;
     }
 
-    if(strcmp(string, "+") == 0){
-        // Addition
-    }
-    else if(strcmp(string, "-") == 0){
-        // Subtraction
-    }
-    else if(strcmp(string, "/") == 0){
-        // Division
-    }
-    else if(strcmp(string, "*") == 0){
-        // Multiplication
+    if(string[0] == '+' || string[0] == '-' || string[0] == '*' || string[0] == '/'){
+        return TRUE;
     }
 
-    switch(*string){
-        case '+':
-        break;
-    }
+    return FALSE;
 }
 
 int main(int argc, char *argv[])
 {
-
-    if (argv == 4)
-    {
-    }
-    else
-    {
-        printf("Only 3 arguments expected!\n");
-    }
-
+    BOOL showAcceptedArguments = TRUE;
     if (argc == 4)
     {
 
-        if (check_if_number(argv[1]) && check_if_number(argv[3]))
+        if (check_if_number(argv[1]) && check_if_calculation(argv[2]) && check_if_number(argv[3]))
         {
+            float num1 = atof(argv[1]);
+            float num2 = atof(argv[3]);
+            char symbol = argv[2][0];
 
-        }
+            float result;
 
-        int sum = 0;
-        int total = 0;
+            BOOL showResult = TRUE;
 
-        for (int i = 1; i < argc; i++)
-        {
-            if (check_if_number(argv[i]))
+            if (symbol == '+')
             {
-                sum += atoi(argv[i]);
-                total++;
+                // Addition
+                result = num1 + num2;
+            }
+            else if (symbol == '-')
+            {
+                // Subtraction
+                result = num1 - num2;
+            }
+            else if (symbol == '/')
+            {
+                // Division
+                result = num1 / num2;
             }
             else
             {
-                printf("Non-numeric input entered (%s)! This will be ignored.\n", argv[i]);
+                // Multiplication
+                result = num1 * num2;
             }
-        }
 
-        if (sum != 0 && total != 0)
-        {
-            printf("The final average is: %d\n", (sum / total));
+            if (showResult)
+            {
+                printf("%.2f %c %.2f = %.2f", num1, symbol, num2, result);
+                showAcceptedArguments = FALSE;
+            }
         }
         else
         {
-            printf("No average could be calculated. Please try again.\n");
+            printf("Invalid Calculation!\n");
         }
     }
     else
     {
-        printf("At least one argument expected.\n");
+        printf("Invalid Arguments!\n");
     }
+
+    if(showAcceptedArguments){
+        printf("Accepted Arguments: \n");
+        printf("ARG 1: INTEGER | FLOAT\n");
+        printf("ARG 2: + | - | * | /\n");
+        printf("ARG 3: INTEGER | FLOAT\n");
+    }
+
+    printf("\n\n");
 }
