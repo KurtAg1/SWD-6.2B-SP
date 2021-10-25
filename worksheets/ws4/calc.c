@@ -26,26 +26,34 @@ BOOL check_if_number(char *string)
     return TRUE;
 }
 
-BOOL check_if_calculation(char* string){
+BOOL check_if_operator(char* string){
     if(strlen(string) != 1){
         printf("Error: Invalid Operator\n");
         return FALSE;
     }
 
-    if(string[0] == '+' || string[0] == '-' || string[0] == '*' || string[0] == '/'){
+    if(string[0] == '+'){
         return TRUE;
     }
 
+    if(string[0] == '-' || string[0] == '*' || string[0] == '/'){
+        #ifndef DEMO
+            return TRUE;
+        #endif
+        printf("Error: Demo only supports additions.\n");
+        return FALSE;
+    }
+
+    printf("Error: Invalid Operator\n");
     return FALSE;
 }
 
 int main(int argc, char *argv[])
 {
-    BOOL showAcceptedArguments = TRUE;
     if (argc == 4)
     {
 
-        if (check_if_number(argv[1]) && check_if_calculation(argv[2]) && check_if_number(argv[3]))
+        if (check_if_number(argv[1]) && check_if_operator(argv[2]) && check_if_number(argv[3]))
         {
             float num1 = atof(argv[1]);
             float num2 = atof(argv[3]);
@@ -78,23 +86,14 @@ int main(int argc, char *argv[])
 
             if (showResult)
             {
-                printf("%.2f %c %.2f = %.2f", num1, symbol, num2, result);
-                showAcceptedArguments = FALSE;
+                printf("%.2f %c %.2f = %.2f\n", num1, symbol, num2, result);
             }
         }
     }
     else
     {
-        printf("Too few/many Arguments!\n");
+        printf("Error: Only 3 Arguments Accepted\n");
     }
 
-    if(showAcceptedArguments){
-        printf("Accepted Arguments: \n");
-        printf("ARG 1: INTEGER | FLOAT\n");
-        printf("ARG 2: + | - | * | /\n");
-        printf("ARG 3: INTEGER | FLOAT\n");
-    }
-
-    printf("\n\n");
     return 0;
 }
