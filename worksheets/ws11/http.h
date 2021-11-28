@@ -1,0 +1,3 @@
+#define BUFFER_SIZE		1024
+#define HTTP_PORT 		12345
+#define MAX_CONNECTIONS 5
