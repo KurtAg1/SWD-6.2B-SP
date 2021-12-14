@@ -16,16 +16,24 @@ int main(int argc, char *argv[])
 
     int words = 0;
     int characters = 0;
+    bool spaceBefore = false;
 
     for(int i = 0; i < 100; i++){
         if(buffer[i] == '\0'){
             break;
         }
         else if(buffer[i] == ' '){
-            words++;
+            if(!spaceBefore){
+                words++;
+                spaceBefore = true;
+            }
         }
         else{
+            if(i == 0){
+                words++;
+            }
             characters++;
+            spaceBefore = false;
         }
     }
 
