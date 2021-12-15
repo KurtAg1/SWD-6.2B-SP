@@ -1,48 +1,56 @@
-#include <stdio.h>
-#include <stdbool.h>
+#include "lo1.h"
 
 int main(int argc, char *argv[])
 {
     char buffer[100] = {'\0'};
-    bool showChars = false;
-    if (argc > 1)
+
+#ifdef EXTENDED
+    while (true)
     {
-        // check for flag
-        showChars = (argv[1][0] == '-' && argv[1][1] == 'c');
-    }
+#endif
+        printf("Enter text: ");
+        fgets(buffer, 100, stdin);
 
-    printf("Enter text: ");
-    fgets(buffer, 100, stdin);
+        int words = 0;
+        int characters = 0;
+        bool spaceBefore = false;
 
-    int words = 0;
-    int characters = 0;
-    bool spaceBefore = false;
-
-    for(int i = 0; i < 100; i++){
-        if(buffer[i] == '\0'){
-            break;
-        }
-        else if(buffer[i] == ' '){
-            if(!spaceBefore){
-                words++;
-                spaceBefore = true;
+        for (int i = 0; i < 100; i++)
+        {
+            if (buffer[i] == '\0')
+            {
+                break;
+            }
+            else if (is_space(buffer[i]))
+            {
+                if (!spaceBefore)
+                {
+                    words++;
+                    spaceBefore = true;
+                }
+            }
+            else
+            {
+                if (i == 0)
+                {
+                    words++;
+                }
+                characters++;
+                spaceBefore = false;
             }
         }
-        else{
-            if(i == 0){
-                words++;
-            }
-            characters++;
-            spaceBefore = false;
-        }
-    }
 
-    if(showChars){
-        printf("%d words (%d characters)\n", words, characters);
+        if (should_count_chars(argc, argv))
+        {
+            printf("%d words (%d characters)\n", words, characters);
+        }
+        else
+        {
+            printf("%d words\n", words);
+        }
+#ifdef EXTENDED
     }
-    else{
-        printf("%d words\n", words);
-    }
-    
+#endif
+
     return 0;
 }
