@@ -25,3 +25,26 @@ var2: 6..7
 c: 12..16
 argc: 14..15
 argv: 14..15
+
+2.3 Outline specific use-cases which could require the use of specific memory management
+
+- Outline the main difference between a union and a struct in C
+struct - uses all the memory needed to store all the variables (5 bytes)
+union - uses the size of the largest variable. (4 bytes)
+
+- Outline one specific use case where you would prefer to use a union instead of a struct.
+When only one of the fields is required to be filled in
+
+2.4  Evaluate the type of program memory management required for a given use-case (structured static or dynamically allocated)
+
+Program 1: 
+G will always be 0 while L might be anything (uninitialized stack variable)
+
+Program 2:
+Output: 
+Inspiration exists but it must find you working.
+Inspiration exists but it must find you workingXXXXXXXXX
+
+printf("%s", string) will print the string correctly.
+XXX are garbage characters. The loop will print 75 characters, but the string is shorter,
+hence, whatever is in memory after the string will be printed.
