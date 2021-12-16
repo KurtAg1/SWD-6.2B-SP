@@ -1,0 +1,27 @@
+2.1 Examine typical language scope
+
+- What is the output when you run this program?
+1
+1
+1
+1
+1
+
+- How will the output change if static is uncommented?
+1
+2
+3
+4
+5
+
+- Can you explain this difference?
+static keeps the variable alive in the global scope, so when the function is called again, it is not reset to 0,
+instead it keeps its previous value.
+
+- How many variables can you identify in this program? For each variable list the line numbers in which it is in scope
+param: 2..10
+var1: 3..10
+var2: 6..7
+c: 12..16
+argc: 14..15
+argv: 14..15
