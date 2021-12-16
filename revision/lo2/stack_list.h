@@ -28,7 +28,7 @@ void print_stack(struct item *item)
 {
     bool first = true;
     while(item != NULL){
-        printf("%s%d\n", first ? "" : "->", item->value);
+        printf("%s%d", first ? "" : "->", item->value);
         first = false;
         item = item->next;
     }
